@@ -134,3 +134,6 @@ async function loadCustomers() {
 }
 
 loadCustomers();
+function exportCSV() {
+  window.open("http://localhost:5000/api/customers/export/csv");
+}

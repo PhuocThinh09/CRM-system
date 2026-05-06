@@ -5,7 +5,8 @@ const {
   getCustomerById,
   createCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  exportCustomersCSV
 } = require("../controllers/customerController");
 
 router.get("/", getAllCustomers);
@@ -13,5 +14,5 @@ router.get("/:id", getCustomerById);
 router.post("/", createCustomer);
 router.put("/:id", updateCustomer);
 router.delete("/:id", deleteCustomer);
-
+router.get("/export/csv", exportCustomersCSV);
 module.exports = router;

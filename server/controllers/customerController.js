@@ -195,11 +195,60 @@ const deleteCustomer = (req, res) => {
     });
   });
 };
+const escapeCSVValue = (value) => {
+  if (value === null || value === undefined) return "";
 
+  const text = value instanceof Date
+    ? value.toISOString()
+    : String(value);
+
+  // Bọc mỗi giá trị bằng dấu " và escape dấu " bên trong dữ liệu
+  return `"${text.replace(/"/g, '""')}"`;
+};
+
+const exportCustomersCSV = (req, res) => {
+  const sql = `
+    SELECT id, full_name, email, phone, source, status, created_at
+    FROM customers
+  `;
+
+  db.query(sql, (err, rows) => {
+    if (err) {
+      console.error("EXPORT ERROR:", err);
+      return res.status(500).json({
+        message: "Export CSV failed",
+        error: err.message
+      });
+    }
+
+    const header = ["ID", "Full Name", "Email", "Phone", "Source", "Status", "Created At"];
+
+    const dataRows = rows.map((c) => [
+      c.id,
+      c.full_name,
+      c.email,
+      c.phone,
+      c.source,
+      c.status,
+      c.created_at ? new Date(c.created_at).toISOString() : ""
+    ]);
+
+    const csv = "\uFEFF" + [
+      header.join(","),
+      ...dataRows.map((row) => row.map(escapeCSVValue).join(","))
+    ].join("\r\n");
+
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", 'attachment; filename="customers.csv"');
+
+    return res.status(200).send(csv);
+  });
+};
 module.exports = {
   getAllCustomers,
   getCustomerById,
   createCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  exportCustomersCSV
 };
