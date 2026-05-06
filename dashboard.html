@@ -5,30 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - CRM System</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="dashboard-layout">
     <aside class="sidebar">
       <div class="sidebar__brand">
-  <div class="brand-logo">
-    <div class="brand-logo__mark" aria-hidden="true">
-      <svg viewBox="0 0 64 64" class="brand-logo__svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="crmLogoGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#60a5fa" />
-            <stop offset="100%" stop-color="#2563eb" />
-          </linearGradient>
-        </defs>
-        <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#crmLogoGradient)"/>
-        <path d="M23 24.5C25.2 21.5 28.4 20 32.6 20C36.7 20 40 21.6 42.5 24.8L38.8 28.1C37.2 26 35.2 25 32.8 25C30.5 25 28.6 25.8 27.2 27.5C25.8 29.2 25.1 31.4 25.1 34C25.1 36.6 25.8 38.8 27.2 40.5C28.6 42.2 30.5 43 32.8 43C35.4 43 37.5 41.9 39.2 39.7L42.9 42.9C40.3 46.3 36.9 48 32.6 48C28.4 48 25.2 46.5 23 43.5C20.8 40.5 19.7 37.3 19.7 34C19.7 30.7 20.8 27.5 23 24.5Z" fill="white"/>
-      </svg>
-    </div>
-    <div class="brand-logo__text">
-      <h1>CRM System</h1>
-      <p>Small Business Manager</p>
-    </div>
-  </div>
-</div>
+        <div class="brand-logo">
+          <div class="brand-logo__mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" class="brand-logo__svg" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="crmLogoGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#60a5fa" />
+                  <stop offset="100%" stop-color="#2563eb" />
+                </linearGradient>
+              </defs>
+              <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#crmLogoGradient)"/>
+              <path d="M23 24.5C25.2 21.5 28.4 20 32.6 20C36.7 20 40 21.6 42.5 24.8L38.8 28.1C37.2 26 35.2 25 32.8 25C30.5 25 28.6 25.8 27.2 27.5C25.8 29.2 25.1 31.4 25.1 34C25.1 36.6 25.8 38.8 27.2 40.5C28.6 42.2 30.5 43 32.8 43C35.4 43 37.5 41.9 39.2 39.7L42.9 42.9C40.3 46.3 36.9 48 32.6 48C28.4 48 25.2 46.5 23 43.5C20.8 40.5 19.7 37.3 19.7 34C19.7 30.7 20.8 27.5 23 24.5Z" fill="white"/>
+            </svg>
+          </div>
+          <div class="brand-logo__text">
+            <h1>CRM System</h1>
+            <p>Small Business Manager</p>
+          </div>
+        </div>
+      </div>
 
       <nav class="sidebar__nav">
         <a href="dashboard.html" class="sidebar__link active">Dashboard</a>
@@ -42,14 +43,15 @@
     <main class="dashboard-main">
       <header class="topbar">
         <div>
-          <h2>Dashboard</h2>
-          <p>Track customer performance and business activity in one place.</p>
+          <h2>Customer Statistics Dashboard</h2>
+          <p>Track customer distribution and customer growth trend.</p>
         </div>
       </header>
 
       <section class="toolbar">
         <div class="toolbar__left">
           <span class="badge badge-info">Live Summary API</span>
+          <p id="dashboardMessage" class="table-message"></p>
         </div>
 
         <div class="toolbar__right">
@@ -59,44 +61,63 @@
         </div>
       </section>
 
-      <section class="panel">
-        <div class="panel__header">
-          <div>
-            <h2>Overview Summary</h2>
-            <p>Real dashboard data loaded from backend</p>
-          </div>
+      <section class="dashboard-total-card">
+        <div>
+          <h3>Total Customers</h3>
+          <p id="totalCustomers" class="dashboard-total-number">0</p>
         </div>
-
-        <p id="dashboardMessage" class="table-message"></p>
-
-        <div class="summary-grid">
-          <div class="summary-card">
-            <h3>Total Customers</h3>
-            <p id="totalCustomers" class="summary-number">0</p>
-            <span>All customers stored in the database</span>
-          </div>
-
-          <div class="summary-card">
-            <h3>Total Interactions</h3>
-            <p id="totalInteractions" class="summary-number">0</p>
-            <span>Calls, emails, meetings, and messages</span>
-          </div>
-
-          <div class="summary-card">
-            <h3>Total Tasks</h3>
-            <p id="totalTasks" class="summary-number">0</p>
-            <span>Follow-up tasks currently tracked</span>
-          </div>
-
-          <div class="summary-card">
-            <h3>New Customers</h3>
-            <p id="totalNewCustomers" class="summary-number">0</p>
-            <span>Recently added customer records</span>
-          </div>
+        <div class="dashboard-total-meta">
+          <span>Total Interactions: <strong id="totalInteractions">0</strong></span>
+          <span>Total Tasks: <strong id="totalTasks">0</strong></span>
+          <span>New Customers: <strong id="totalNewCustomers">0</strong></span>
         </div>
       </section>
 
-      <section class="panel">
+      <section class="dashboard-chart-grid">
+        <article class="dashboard-chart-card">
+          <h2>Customers by Status</h2>
+          <p id="statusChartMessage" class="table-message"></p>
+
+          <div class="chart-canvas-wrap pie-chart-wrap">
+            <canvas id="customerStatusChart"></canvas>
+          </div>
+
+          <table class="dashboard-stats-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody id="customerStatusTableBody">
+              <tr><td colspan="2">Loading...</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="dashboard-chart-card">
+          <h2>Customer Growth Trend (Last 6 Months)</h2>
+          <p id="growthChartMessage" class="table-message"></p>
+
+          <div class="chart-canvas-wrap bar-chart-wrap">
+            <canvas id="customerGrowthChart"></canvas>
+          </div>
+
+          <table class="dashboard-stats-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Customers Added</th>
+              </tr>
+            </thead>
+            <tbody id="customerGrowthTableBody">
+              <tr><td colspan="2">Loading...</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="panel dashboard-mini-summary-panel">
         <div class="panel__header">
           <div>
             <h2>Dashboard Status</h2>
@@ -112,7 +133,7 @@
 
           <div class="note-card">
             <h3>Live Data</h3>
-            <p>All summary cards display current data retrieved from the backend database.</p>
+            <p>All charts display current data retrieved from the backend database.</p>
           </div>
 
           <div class="note-card">

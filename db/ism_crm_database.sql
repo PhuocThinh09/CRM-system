@@ -48,7 +48,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'Tôn Quang Duy','quangduy37@gmail.com','0988888777','Interested','Facebook Ads','Thu Duc, Ho Chi Minh City','Customer is interested in bulk purchase and asked about discount options.','2026-03-26','2026-03-28',12500000.00,1,'2026-03-28 14:21:30'),(2,'Le Minh Trang','trang.le@email.com','0938998889','Contacted','Website Form','Binh Thanh, Ho Chi Minh City','Customer requested a detailed quote before making decision.','2026-03-25','2026-03-29',8300000.00,1,'2026-03-28 14:21:30'),(3,'Tran Gia Huy','huy.tran@email.com','0987741258','New','Zalo','District 7, Ho Chi Minh City','New lead asking for latest catalog and delivery fee.','2026-03-24','2026-03-27',4500000.00,2,'2026-03-28 14:21:30'),(16,'Mai Hung','abc@gmail.com','0889774232','New','Facebook Ads',NULL,NULL,'2026-03-24','2026-03-31',NULL,NULL,'2026-03-31 12:00:24'),(17,'Lê Phú An','an123@gmail.com','0912475784','New','Email Campaign',NULL,NULL,'2026-03-31','2026-04-15',NULL,NULL,'2026-04-06 11:48:58');
+INSERT INTO `customers` VALUES (1,'Tôn Quang Duy','quangduy37@gmail.com','0988888777','Interested','Facebook Ads','Thu Duc, Ho Chi Minh City','Customer is interested in bulk purchase and asked about discount options.','2026-03-26','2026-03-28',12500000.00,1,'2025-11-08 09:15:00'),(2,'Le Minh Trang','trang.le@email.com','0938998889','Contacted','Website Form','Binh Thanh, Ho Chi Minh City','Customer requested a detailed quote before making decision.','2026-03-25','2026-03-29',8300000.00,1,'2025-12-03 10:20:00'),(3,'Tran Gia Huy','huy.tran@email.com','0987741258','New','Zalo','District 7, Ho Chi Minh City','New lead asking for latest catalog and delivery fee.','2026-03-24','2026-03-27',4500000.00,2,'2025-12-18 14:45:00'),(16,'Mai Hung','abc@gmail.com','0889774232','New','Facebook Ads',NULL,NULL,'2026-03-24','2026-03-31',NULL,NULL,'2026-03-30 18:00:00'),(17,'Lê Phú An','an123@gmail.com','0912475784','New','Email Campaign',NULL,NULL,'2026-03-31','2026-04-15',NULL,NULL,'2026-04-01 09:00:00');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-13 12:48:18
+-- Dump completed on 2026-04-25 20:54:04
